@@ -1,0 +1,448 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>myBlog | myBlog</title><meta name="author" content="Q"><meta name="copyright" content="Q"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="urllib与requests一、urllib的学习学习目标了解urllib的基本使用   1、urllib介绍除了requests模块可以发送请求之外, urllib模块也可以实现请求的发送,只是操作方法略有不同! urllib在python中分为urllib和urllib2，在python3中为urllib 下面以python3的urllib为例进行讲解 2、urllib的基本方法介绍2.1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="myBlog">
+<meta property="og:url" content="http://example.com/2023/12/28/urllib%E4%B8%8Erequests1/index.html">
+<meta property="og:site_name" content="myBlog">
+<meta property="og:description" content="urllib与requests一、urllib的学习学习目标了解urllib的基本使用   1、urllib介绍除了requests模块可以发送请求之外, urllib模块也可以实现请求的发送,只是操作方法略有不同! urllib在python中分为urllib和urllib2，在python3中为urllib 下面以python3的urllib为例进行讲解 2、urllib的基本方法介绍2.1">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/img/avatar.png">
+<meta property="article:published_time" content="2023-12-28T05:03:47.684Z">
+<meta property="article:modified_time" content="2023-12-28T06:18:16.044Z">
+<meta property="article:author" content="Q">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/img/avatar.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://example.com/2023/12/28/urllib%E4%B8%8Erequests1/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":true,"top_n_per_article":-1,"unescape":true,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'myBlog',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-12-28 14:18:16'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.0.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">20</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/background.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="myBlog"><span class="site-name">myBlog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">无题</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-12-28T05:03:47.684Z" title="发表于 2023-12-28 13:03:47">2023-12-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-12-28T06:18:16.044Z" title="更新于 2023-12-28 14:18:16">2023-12-28</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>16分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title=""><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="urllib与requests"><a href="#urllib与requests" class="headerlink" title="urllib与requests"></a>urllib与requests</h1><h2 id="一、urllib的学习"><a href="#一、urllib的学习" class="headerlink" title="一、urllib的学习"></a>一、urllib的学习</h2><h5 id="学习目标"><a href="#学习目标" class="headerlink" title="学习目标"></a>学习目标</h5><p>了解urllib的基本使用 </p>
+<hr>
+<h3 id="1、urllib介绍"><a href="#1、urllib介绍" class="headerlink" title="1、urllib介绍"></a>1、urllib介绍</h3><p>除了requests模块可以发送请求之外, urllib模块也可以实现请求的发送,只是操作方法略有不同!</p>
+<p>urllib在python中分为urllib和urllib2，在python3中为urllib</p>
+<p>下面以python3的urllib为例进行讲解</p>
+<h3 id="2、urllib的基本方法介绍"><a href="#2、urllib的基本方法介绍" class="headerlink" title="2、urllib的基本方法介绍"></a>2、urllib的基本方法介绍</h3><h4 id="2-1-urllib-Request"><a href="#2-1-urllib-Request" class="headerlink" title="2.1 urllib.Request"></a>2.1 urllib.Request</h4><ol>
+<li><p>构造简单请求</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib</span><br><span class="line"><span class="comment">#构造请求</span></span><br><span class="line">request = urllib.request.Request(<span class="string">&quot;http://www.baidu.com&quot;</span>)</span><br><span class="line"><span class="comment">#发送请求获取响应</span></span><br><span class="line">response = urllib.request.urlopen(request)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>传入headers参数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib</span><br><span class="line"><span class="comment">#构造headers</span></span><br><span class="line">headers = &#123;<span class="string">&quot;User-Agent&quot;</span> : <span class="string">&quot;Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)&quot;</span>&#125; </span><br><span class="line"><span class="comment">#构造请求</span></span><br><span class="line">request = urllib.request.Request(url, headers = headers)</span><br><span class="line"><span class="comment">#发送请求</span></span><br><span class="line">response = urllib.request.urlopen(request)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>传入data参数 实现发送post请求（示例）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib.request</span><br><span class="line"><span class="keyword">import</span> urllib.parse</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line">url = <span class="string">&#x27;https://ifanyi.iciba.com/index.php?c=trans&amp;m=fy&amp;client=6&amp;auth_user=key_ciba&amp;sign=99730f3bf66b2582&#x27;</span></span><br><span class="line"></span><br><span class="line">headers = &#123;</span><br><span class="line">    <span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.0 Safari/605.1.15&#x27;</span>,</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">data = &#123;</span><br><span class="line">    <span class="string">&#x27;from&#x27;</span>: <span class="string">&#x27;zh&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;to&#x27;</span>: <span class="string">&#x27;en&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;q&#x27;</span>: <span class="string">&#x27;lucky 是一个帅气的老&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment"># 使用post方式</span></span><br><span class="line"><span class="comment"># 需要</span></span><br><span class="line">data = urllib.parse.urlencode(data).encode(<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">req = urllib.request.Request(url, data=data, headers=headers)</span><br><span class="line">res = urllib.request.urlopen(req)</span><br><span class="line"><span class="built_in">print</span>(res.getcode())</span><br><span class="line"><span class="built_in">print</span>(res.geturl())</span><br><span class="line">data = json.loads(res.read().decode(<span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line"><span class="built_in">print</span>(data)</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="2-2-response-read"><a href="#2-2-response-read" class="headerlink" title="2.2 response.read()"></a>2.2 response.read()</h4><p>获取响应的html字符串,bytes类型</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#发送请求</span></span><br><span class="line">response = urllib.request.urlopen(<span class="string">&quot;http://www.baidu.com&quot;</span>)</span><br><span class="line"><span class="comment">#获取响应</span></span><br><span class="line">response.read()</span><br></pre></td></tr></table></figure>
+
+<h3 id="3、urllib请求百度首页的完整例子"><a href="#3、urllib请求百度首页的完整例子" class="headerlink" title="3、urllib请求百度首页的完整例子"></a>3、urllib请求百度首页的完整例子</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> urllib</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line">url = <span class="string">&#x27;http://www.baidu.com&#x27;</span></span><br><span class="line"><span class="comment">#构造headers</span></span><br><span class="line">headers = &#123;<span class="string">&quot;User-Agent&quot;</span> : <span class="string">&quot;Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)&quot;</span>&#125;</span><br><span class="line"><span class="comment">#构造请求</span></span><br><span class="line">request = urllib.request.Request(url, headers = headers)</span><br><span class="line"><span class="comment">#发送请求</span></span><br><span class="line">response = urllib.request.urlopen(request)</span><br><span class="line"><span class="comment">#获取html字符串</span></span><br><span class="line">html_str = response.read().decode(<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line"><span class="built_in">print</span>(html_str)</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、小结"><a href="#4、小结" class="headerlink" title="4、小结"></a>4、小结</h3><ol>
+<li>urllib.request中实现了构造请求和发送请求的方法</li>
+<li>urllib.request.Request(url,headers,data)能够构造请求</li>
+<li>urllib.request.urlopen能够接受request请求或者url地址发送请求，获取响应</li>
+<li>response.read()能够实现获取响应中的bytes字符串</li>
+</ol>
+<h1 id="requests模块的入门使用"><a href="#requests模块的入门使用" class="headerlink" title="requests模块的入门使用"></a>requests模块的入门使用</h1><h2 id="一、requests模块的入门使用"><a href="#一、requests模块的入门使用" class="headerlink" title="一、requests模块的入门使用"></a>一、requests模块的入门使用</h2><h5 id="学习目标："><a href="#学习目标：" class="headerlink" title="学习目标："></a>学习目标：</h5><ol>
+<li>了解 requests模块的介绍</li>
+<li>掌握 requests的基本使用</li>
+<li>掌握 response常见的属性</li>
+<li>掌握 requests.text和content的区别</li>
+<li>掌握 解决网页的解码问题</li>
+<li>掌握 requests模块发送带headers的请求</li>
+<li>掌握 requests模块发送带参数的get请求</li>
+</ol>
+<hr>
+<h3 id="1、为什么要重点学习requests模块，而不是urllib"><a href="#1、为什么要重点学习requests模块，而不是urllib" class="headerlink" title="1、为什么要重点学习requests模块，而不是urllib"></a>1、为什么要重点学习requests模块，而不是urllib</h3><ul>
+<li>企业中用的最多的就是requests</li>
+<li>requests的底层实现就是urllib</li>
+<li>requests在python2 和python3中通用，方法完全一样</li>
+<li>requests简单易用</li>
+</ul>
+<h3 id="2、requests的作用与安装"><a href="#2、requests的作用与安装" class="headerlink" title="2、requests的作用与安装"></a>2、requests的作用与安装</h3><p>作用：发送网络请求，返回响应数据</p>
+<p>安装：pip install requests</p>
+<h3 id="3、requests模块发送简单的get请求、获取响应"><a href="#3、requests模块发送简单的get请求、获取响应" class="headerlink" title="3、requests模块发送简单的get请求、获取响应"></a>3、requests模块发送简单的get请求、获取响应</h3><p>需求：通过requests向百度首页发送请求，获取百度首页的数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="comment"># 目标url</span></span><br><span class="line">url = <span class="string">&#x27;https://www.baidu.com&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 向目标url发送get请求</span></span><br><span class="line">response = requests.get(url)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印响应内容</span></span><br><span class="line"><span class="built_in">print</span>(response.text)</span><br></pre></td></tr></table></figure>
+
+<p><strong>response的常用属性：</strong></p>
+<ul>
+<li><p><code>response.text</code> 响应体 str类型</p>
+</li>
+<li><p><code>response.encoding</code>  从HTTP　header中猜测的响应内容的编码方式</p>
+</li>
+<li><p><code>respones.content</code> 响应体 bytes类型</p>
+</li>
+<li><p><code>response.status_code</code> 响应状态码</p>
+</li>
+<li><p><code>response.request.headers</code> 响应对应的请求头</p>
+</li>
+<li><p><code>response.headers</code> 响应头</p>
+</li>
+<li><p><code>response.cookies</code> 响应的cookie（经过了set-cookie动作）</p>
+</li>
+<li><p><code>response.url </code> 获取访问的url</p>
+</li>
+<li><p><code>response.json()</code>  获取json数据 得到内容为字典 (如果接口响应体的格式是json格式时)</p>
+</li>
+<li><p><code>response.ok</code> </p>
+<p>如果status_code小于200，response.ok返回True。</p>
+<p>如果status_code大于200，response.ok返回False。</p>
+</li>
+</ul>
+<p><strong>思考：text是response的属性还是方法呢？</strong></p>
+<ul>
+<li>一般来说名词，往往都是对象的属性，对应的动词是对象的方法</li>
+</ul>
+<h5 id="3-1-response-text-和response-content的区别"><a href="#3-1-response-text-和response-content的区别" class="headerlink" title="3.1 response.text 和response.content的区别"></a>3.1 response.text 和response.content的区别</h5><ul>
+<li><code>response.text</code><ul>
+<li>类型：str</li>
+<li>解码类型： requests模块自动根据HTTP 头部对响应的编码作出有根据的推测，推测的文本编码</li>
+<li>如何修改编码方式：<code>response.encoding=&quot;gbk/UTF-8&quot;</code></li>
+</ul>
+</li>
+<li><code>response.content</code><ul>
+<li>类型：bytes</li>
+<li>解码类型： 没有指定</li>
+<li>如何修改编码方式：<code>response.content.deocde(&quot;utf8&quot;)</code></li>
+</ul>
+</li>
+</ul>
+<p>获取网页源码的通用方式：</p>
+<ol>
+<li><code>response.content.decode()</code></li>
+<li><code>response.content.decode(&quot;UTF-8&quot;)</code></li>
+<li><code>response.text</code></li>
+</ol>
+<p>以上三种方法从前往后尝试，能够100%的解决所有网页解码的问题</p>
+<p>所以：更推荐使用<code>response.content.deocde()</code>的方式获取响应的html页面</p>
+<h5 id="3-2-练习：把网络上的图片保存到本地"><a href="#3-2-练习：把网络上的图片保存到本地" class="headerlink" title="3.2 练习：把网络上的图片保存到本地"></a>3.2 练习：把网络上的图片保存到本地</h5><blockquote>
+<p>我们来把<code>www.baidu.com</code>的图片保存到本地</p>
+</blockquote>
+<p><strong>思考：</strong></p>
+<ul>
+<li>以什么方式打开文件</li>
+<li>保存什么格式的内容</li>
+</ul>
+<p><strong>分析：</strong></p>
+<ul>
+<li>图片的url: <a target="_blank" rel="noopener" href="https://www.baidu.com/img/bd_logo1.png">https://www.baidu.com/img/bd_logo1.png</a></li>
+<li>利用requests模块发送请求获取响应</li>
+<li>以2进制写入的方式打开文件，并将response响应的二进制内容写入</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="comment"># 图片的url</span></span><br><span class="line">url = <span class="string">&#x27;https://www.baidu.com/img/bd_logo1.png&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 响应本身就是一个图片,并且是二进制类型</span></span><br><span class="line">response = requests.get(url)</span><br><span class="line"></span><br><span class="line"><span class="comment"># print(response.content)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 以二进制+写入的方式打开文件</span></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;baidu.png&#x27;</span>, <span class="string">&#x27;wb&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    <span class="comment"># 写入response.content bytes二进制类型</span></span><br><span class="line">    f.write(response.content)</span><br></pre></td></tr></table></figure>
+
+<h3 id="4、发送带header的请求"><a href="#4、发送带header的请求" class="headerlink" title="4、发送带header的请求"></a>4、发送带header的请求</h3><blockquote>
+<p>我们先写一个获取百度首页的代码</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">url = <span class="string">&#x27;https://www.baidu.com&#x27;</span></span><br><span class="line"></span><br><span class="line">response = requests.get(url)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(response.content)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印响应对应请求的请求头信息</span></span><br><span class="line"><span class="built_in">print</span>(response.request.headers)</span><br></pre></td></tr></table></figure>
+
+<h5 id="4-1-思考"><a href="#4-1-思考" class="headerlink" title="4.1 思考"></a>4.1 思考</h5><p>对比浏览器上百度首页的网页源码和代码中的百度首页的源码，有什么不同？</p>
+<p>代码中的百度首页的源码非常少，为什么？</p>
+<h5 id="4-2-为什么请求需要带上header？"><a href="#4-2-为什么请求需要带上header？" class="headerlink" title="4.2 为什么请求需要带上header？"></a>4.2 为什么请求需要带上header？</h5><p>模拟浏览器，欺骗服务器，获取和浏览器一致的内容</p>
+<h5 id="4-3-header的形式：字典"><a href="#4-3-header的形式：字典" class="headerlink" title="4.3 header的形式：字典"></a>4.3 header的形式：字典</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">headers = &#123;<span class="string">&quot;User-Agent&quot;</span>: <span class="string">&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="4-4-用法"><a href="#4-4-用法" class="headerlink" title="4.4 用法"></a>4.4 用法</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">requests.get(url, headers=headers)</span><br></pre></td></tr></table></figure>
+
+<h5 id="4-5-完整的代码"><a href="#4-5-完整的代码" class="headerlink" title="4.5 完整的代码"></a>4.5 完整的代码</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">url = <span class="string">&#x27;https://www.baidu.com&#x27;</span></span><br><span class="line"></span><br><span class="line">headers = &#123;<span class="string">&quot;User-Agent&quot;</span>: <span class="string">&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36&quot;</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 在请求头中带上User-Agent，模拟浏览器发送请求</span></span><br><span class="line">response = requests.get(url, headers=headers)</span><br><span class="line"></span><br><span class="line"><span class="comment"># print(response.content)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印请求头信息</span></span><br><span class="line"><span class="built_in">print</span>(response.request.headers)</span><br></pre></td></tr></table></figure>
+
+<h3 id="5、发送带参数的请求"><a href="#5、发送带参数的请求" class="headerlink" title="5、发送带参数的请求"></a>5、发送带参数的请求</h3><blockquote>
+<p>我们在使用百度搜索的时候经常发现url地址中会有一个 <code>?</code>，那么该问号后边的就是请求参数，又叫做查询字符串</p>
+</blockquote>
+<h5 id="5-1-什么叫做请求参数："><a href="#5-1-什么叫做请求参数：" class="headerlink" title="5.1 什么叫做请求参数："></a>5.1 什么叫做请求参数：</h5><p>例1： <a target="_blank" rel="noopener" href="http://www.webkaka.com/tutorial/server/2015/021013/">http://www.webkaka.com/tutorial/server/2015/021013/</a></p>
+<p>例2：<a target="_blank" rel="noopener" href="https://www.baidu.com/s?wd=python&a=c">https://www.baidu.com/s?wd=python&amp;a=c</a></p>
+<p>例1中没有请求参数！例2中?后边的就是请求参数</p>
+<h5 id="5-2-请求参数的形式：字典"><a href="#5-2-请求参数的形式：字典" class="headerlink" title="5.2 请求参数的形式：字典"></a>5.2 请求参数的形式：字典</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kw = &#123;<span class="string">&#x27;wd&#x27;</span>:<span class="string">&#x27;长城&#x27;</span>&#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="5-3-请求参数的用法"><a href="#5-3-请求参数的用法" class="headerlink" title="5.3 请求参数的用法"></a>5.3 请求参数的用法</h5><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">requests.get(url,params=kw)</span><br></pre></td></tr></table></figure>
+
+<h5 id="5-4-关于参数的注意点"><a href="#5-4-关于参数的注意点" class="headerlink" title="5.4 关于参数的注意点"></a>5.4 关于参数的注意点</h5><p>在url地址中， 很多参数是没有用的，比如百度搜索的url地址，其中参数只有一个字段有用，其他的都可以删除 如何确定那些请求参数有用或者没用：挨个尝试！ 对应的,在后续的爬虫中，越到很多参数的url地址，都可以尝试删除参数</p>
+<h5 id="5-5-两种方式：发送带参数的请求"><a href="#5-5-两种方式：发送带参数的请求" class="headerlink" title="5.5 两种方式：发送带参数的请求"></a>5.5 两种方式：发送带参数的请求</h5><ul>
+<li><p>对<code>https://www.baidu.com/s?wd=python</code>发起请求可以使用<code>requests.get(url, params=kw)</code>的方式</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 方式一：利用params参数发送带参数的请求</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">headers = &#123;<span class="string">&quot;User-Agent&quot;</span>: <span class="string">&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36&quot;</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 这是目标url</span></span><br><span class="line"><span class="comment"># url = &#x27;https://www.baidu.com/s?wd=python&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 最后有没有问号结果都一样</span></span><br><span class="line">url = <span class="string">&#x27;https://www.baidu.com/s?&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 请求参数是一个字典 即wd=python</span></span><br><span class="line">kw = &#123;<span class="string">&#x27;wd&#x27;</span>: <span class="string">&#x27;python&#x27;</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 带上请求参数发起请求，获取响应</span></span><br><span class="line">response = requests.get(url, headers=headers, params=kw)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 当有多个请求参数时，requests接收的params参数为多个键值对的字典，比如 &#x27;?wd=python&amp;a=c&#x27;--&gt;&#123;&#x27;wd&#x27;: &#x27;python&#x27;, &#x27;a&#x27;: &#x27;c&#x27;&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(response.content)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>也可以直接对<code>https://www.baidu.com/s?wd=python</code>完整的url直接发送请求，不使用params参数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 方式二：直接发送带参数的url的请求</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">headers = &#123;<span class="string">&quot;User-Agent&quot;</span>: <span class="string">&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36&quot;</span>&#125;</span><br><span class="line"></span><br><span class="line">url = <span class="string">&#x27;https://www.baidu.com/s?wd=python&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># kw = &#123;&#x27;wd&#x27;: &#x27;python&#x27;&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># url中包含了请求参数，所以此时无需params</span></span><br><span class="line">response = requests.get(url, headers=headers)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="6、小结"><a href="#6、小结" class="headerlink" title="6、小结"></a>6、小结</h3><ol>
+<li>requests模块的介绍：能够帮助我们发起请求获取响应</li>
+<li>requests的基本使用：<code>requests.get(url)</code></li>
+<li>以及response常见的属性：<ul>
+<li><code>response.text</code> 响应体 str类型</li>
+<li><code>respones.content</code> 响应体 bytes类型</li>
+<li><code>response.status_code</code> 响应状态码</li>
+<li><code>response.request.headers</code> 响应对应的请求头</li>
+<li><code>response.headers</code> 响应头</li>
+<li><code>response.request._cookies</code> 响应对应请求的cookie</li>
+<li><code>response.cookies</code> 响应的cookie（经过了set-cookie动作）</li>
+</ul>
+</li>
+<li>掌握 requests.text和content的区别：text返回str类型，content返回bytes类型</li>
+<li>掌握 解决网页的解码问题：<ul>
+<li><code>response.content.decode()</code></li>
+<li><code>response.content.decode(&quot;UTF-8&quot;)</code></li>
+<li><code>response.text</code></li>
+</ul>
+</li>
+<li>掌握 requests模块发送带headers的请求：<code>requests.get(url, headers=&#123;&#125;)</code></li>
+<li>掌握 requests模块发送带参数的get请求：<code>requests.get(url, params=&#123;&#125;)</code></li>
+</ol>
+<h2 id="二、requests模块的深入使用"><a href="#二、requests模块的深入使用" class="headerlink" title="二、requests模块的深入使用"></a>二、requests模块的深入使用</h2><h5 id="学习目标：-1"><a href="#学习目标：-1" class="headerlink" title="学习目标："></a>学习目标：</h5><ol>
+<li>能够应用requests发送post请求的方法</li>
+<li>能够应用requests模块使用代理的方法</li>
+<li>了解代理ip的分类</li>
+</ol>
+<hr>
+<h3 id="1、使用requests发送POST请求"><a href="#1、使用requests发送POST请求" class="headerlink" title="1、使用requests发送POST请求"></a>1、使用requests发送POST请求</h3><blockquote>
+<p>思考：哪些地方我们会用到POST请求？</p>
+</blockquote>
+<ol>
+<li>登录注册（ POST 比 GET 更安全）</li>
+<li>需要传输大文本内容的时候（ POST 请求对数据长度没有要求）</li>
+</ol>
+<p>所以同样的，我们的爬虫也需要在这两个地方回去模拟浏览器发送post请求</p>
+<h5 id="1-1-requests发送post请求语法："><a href="#1-1-requests发送post请求语法：" class="headerlink" title="1.1 requests发送post请求语法："></a>1.1 requests发送post请求语法：</h5><ul>
+<li><p>用法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">response = requests.post(<span class="string">&quot;http://www.baidu.com/&quot;</span>, data = data, headers=headers)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>data 的形式：字典</p>
+</li>
+</ul>
+<h5 id="1-2-POST请求练习"><a href="#1-2-POST请求练习" class="headerlink" title="1.2 POST请求练习"></a>1.2 POST请求练习</h5><p>下面面我们通过金山翻译的例子看看post请求如何使用：</p>
+<p>地址：<a target="_blank" rel="noopener" href="https://www.iciba.com/fy">https://www.iciba.com/fy</a></p>
+<h5 id="思路分析"><a href="#思路分析" class="headerlink" title="思路分析"></a>思路分析</h5><ol>
+<li><p>抓包确定请求的url地址</p>
+<p>![截屏2022-04-20 下午3.22.11](..&#x2F;images&#x2F;requests1.assets&#x2F;截屏2022-04-20 下午3.22.11.png)</p>
+</li>
+<li><p>确定请求的参数</p>
+<p>![截屏2022-04-20 下午3.23.07](..&#x2F;images&#x2F;requests1.assets&#x2F;截屏2022-04-20 下午3.23.07.png)</p>
+</li>
+<li><p>确定返回数据的位置</p>
+<p><img src="/../images/requests1.assets/image-20220420152404175.png" alt="image-20220420152404175"></p>
+</li>
+<li><p>模拟浏览器获取数据</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"></span><br><span class="line">headers = &#123;<span class="string">&quot;User-Agent&quot;</span>: <span class="string">&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.99 Safari/537.36&quot;</span>&#125;</span><br><span class="line"></span><br><span class="line">url = <span class="string">&#x27;https://ifanyi.iciba.com/index.php?c=trans&amp;m=fy&amp;client=6&amp;auth_user=key_ciba&amp;sign=99730f3bf66b2582&#x27;</span></span><br><span class="line"></span><br><span class="line">data = &#123;</span><br><span class="line">    <span class="string">&#x27;from&#x27;</span>: <span class="string">&#x27;zh&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;to&#x27;</span>: <span class="string">&#x27;en&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;q&#x27;</span>: <span class="string">&#x27;lucky 是一个帅气的老师&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">res = requests.post(url, headers=headers, data=data)</span><br><span class="line"><span class="comment"># print(res.status_code)</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 返回的是json字符串 需要在进行转换为字典</span></span><br><span class="line">data = json.loads(res.content.decode(<span class="string">&#x27;UTF-8&#x27;</span>))</span><br><span class="line"><span class="comment"># print(type(data))</span></span><br><span class="line"><span class="built_in">print</span>(data)</span><br><span class="line"><span class="built_in">print</span>(data[<span class="string">&#x27;content&#x27;</span>][<span class="string">&#x27;out&#x27;</span>])</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h4 id="1-3-小结"><a href="#1-3-小结" class="headerlink" title="1.3 小结"></a>1.3 小结</h4><p>在模拟登陆等场景，经常需要发送post请求，直接使用<code>requests.post(url,data)</code>即可</p>
+<h3 id="2、使用代理"><a href="#2、使用代理" class="headerlink" title="2、使用代理"></a>2、使用代理</h3><h5 id="2-1-为什么要使用代理"><a href="#2-1-为什么要使用代理" class="headerlink" title="2.1 为什么要使用代理"></a>2.1 为什么要使用代理</h5><ol>
+<li>让服务器以为不是同一个客户端在请求</li>
+<li>防止我们的真实地址被泄露，防止被追究</li>
+</ol>
+<h5 id="2-2-理解使用代理的过程"><a href="#2-2-理解使用代理的过程" class="headerlink" title="2.2 理解使用代理的过程"></a>2.2 理解使用代理的过程</h5><p><img src="/../images/requests1.assets/%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%90%86%E7%9A%84%E8%BF%87%E7%A8%8B.png" alt="使用代理的过程"></p>
+<h5 id="2-3-理解正向代理和反向代理的区别（扩展）"><a href="#2-3-理解正向代理和反向代理的区别（扩展）" class="headerlink" title="2.3 理解正向代理和反向代理的区别（扩展）"></a>2.3 理解正向代理和反向代理的区别（扩展）</h5><p><img src="/../images/requests1.assets/%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86%E5%92%8C%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E7%9A%84%E5%8C%BA%E5%88%AB.png" alt="正向代理和反向代理的区别"></p>
+<p>通过上图可以看出：</p>
+<ul>
+<li>正向代理：对于浏览器知道服务器的真实地址，例如VPN</li>
+<li>反向代理：浏览器不知道服务器的真实地址，例如nginx</li>
+</ul>
+<p><strong>详细讲解：</strong></p>
+<p>正向代理是客户端与正向代理客户端在同一局域网，客户端发出请求，正向代理 替代客户端向服务器发出请求。服务器不知道谁是真正的客户端，正向代理隐藏了真实的请求客户端。<br>反向代理：服务器与反向代理在同一个局域网，客服端发出请求，反向代理接收请求 ，反向代理服务器会把我们的请求分转发到真实提供服务的各台服务器Nginx就是性能非常好的反向代理服务器，用来做负载均衡</p>
+<p><img src="/../images/requests1.assets/20190715113403480.png" alt="20190715113403480"></p>
+<h5 id="2-4-代理的使用"><a href="#2-4-代理的使用" class="headerlink" title="2.4 代理的使用"></a>2.4 代理的使用</h5><ul>
+<li><p>用法：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">requests.get(<span class="string">&quot;http://www.baidu.com&quot;</span>,  proxies = proxies)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>proxies的形式：字典</p>
+</li>
+<li><p>例如：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> proxies = <span class="punctuation">&#123;</span></span><br><span class="line">      <span class="attr">&quot;http&quot;</span><span class="punctuation">:</span> <span class="string">&quot;http://12.34.56.79:9527&quot;</span><span class="punctuation">,</span></span><br><span class="line">      <span class="attr">&quot;https&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://12.34.56.79:9527&quot;</span><span class="punctuation">,</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h5 id="2-5-代理IP的分类"><a href="#2-5-代理IP的分类" class="headerlink" title="2.5 代理IP的分类"></a>2.5 代理IP的分类</h5><p>根据代理ip的匿名程度，代理IP可以分为下面三类：</p>
+<ul>
+<li>透明代理(Transparent Proxy)：透明代理的意思是客户端根本不需要知道有代理服务器的存在，但是它传送的仍然是真实的IP。使用透明代理时，对方服务器是可以知道你使用了代理的，并且他们也知道你的真实IP。你要想隐藏的话，不要用这个。透明代理为什么无法隐藏身份呢?因为他们将你的真实IP发送给了对方服务器，所以无法达到保护真实信息。</li>
+<li>匿名代理(Anonymous Proxy)：匿名代理隐藏了您的真实IP，但是向访问对象可以检测是使用代理服务器访问他们的。会改变我们的请求信息，服务器端有可能会认为我们使用了代理。不过使用此种代理时，虽然被访问的网站不能知道你的ip地址，但仍然可以知道你在使用代理，当然某些能够侦测ip的网页也是可以查到你的ip。（<a target="_blank" rel="noopener" href="https://wenku.baidu.com/view/9bf7b5bd3a3567ec102de2bd960590c69fc3d8cf.html%EF%BC%89">https://wenku.baidu.com/view/9bf7b5bd3a3567ec102de2bd960590c69fc3d8cf.html）</a></li>
+<li>高匿代理(Elite proxy或High Anonymity Proxy)：高匿名代理不改变客户机的请求，这样在服务器看来就像有个真正的客户浏览器在访问它，这时客户的真实IP是隐藏的，完全用代理服务器的信息替代了您的所有信息，就象您就是完全使用那台代理服务器直接访问对象，同时服务器端不会认为我们使用了代理。IPDIEA覆盖全球240＋国家地区ip高匿名代理不必担心被追踪。</li>
+</ul>
+<p>在使用的使用，毫无疑问使用高匿代理效果最好</p>
+<p>从请求使用的协议可以分为：</p>
+<ul>
+<li>http代理</li>
+<li>https代理</li>
+<li>socket代理等</li>
+</ul>
+<p>不同分类的代理，在使用的时候需要根据抓取网站的协议来选择</p>
+<h5 id="2-6-代理IP使用的注意点"><a href="#2-6-代理IP使用的注意点" class="headerlink" title="2.6 代理IP使用的注意点"></a>2.6 代理IP使用的注意点</h5><ul>
+<li><p>反反爬</p>
+<p>使用代理ip是非常必要的一种<code>反反爬</code>的方式</p>
+<p>但是即使使用了代理ip，对方服务器任然会有很多的方式来检测我们是否是一个爬虫，比如：</p>
+<ul>
+<li><p>一段时间内，检测IP访问的频率，访问太多频繁会屏蔽</p>
+</li>
+<li><p>检查Cookie，User-Agent，Referer等header参数，若没有则屏蔽</p>
+</li>
+<li><p>服务方购买所有代理提供商，加入到反爬虫数据库里，若检测是代理则屏蔽</p>
+<p>所以更好的方式在使用代理ip的时候使用随机的方式进行选择使用，不要每次都用一个代理ip</p>
+</li>
+</ul>
+</li>
+<li><p>代理ip池的更新</p>
+<p>购买的代理ip很多时候大部分(超过60%)可能都没办法使用，这个时候就需要通过程序去检测哪些可用，把不能用的删除掉。</p>
+</li>
+</ul>
+<ul>
+<li><p>代理服务器平台的使用：</p>
+<p>当然还有很多免费的，但是大多都不可用需要自己尝试</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://www.66ip.cn/">http://www.66ip.cn</a></li>
+<li><a target="_blank" rel="noopener" href="https://ip.jiangxianli.com/?page=1">https://ip.jiangxianli.com/?page=1</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.zdaye.com/">https://www.zdaye.com</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.kuaidaili.com/free">https://www.kuaidaili.com/free</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="3、配置"><a href="#3、配置" class="headerlink" title="3、配置"></a>3、配置</h3><ul>
+<li><p>浏览器配置代理</p>
+<p>右边三点=&#x3D;&gt; 设置=&#x3D;&gt; 高级=&#x3D;&gt; 代理=&#x3D;&gt; 局域网设置=&#x3D;&gt; 为LAN使用代理&#x3D;&#x3D;&gt; 输入ip和端口号即可</p>
+<p>参考网址：<a target="_blank" rel="noopener" href="https://jingyan.baidu.com/article/a681b0dece76407a1843468d.html">https://jingyan.baidu.com/article/a681b0dece76407a1843468d.html</a></p>
+</li>
+<li><p>代码配置</p>
+<p>urllib</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">handler = urllib.request.ProxyHandler(&#123;<span class="string">&#x27;http&#x27;</span>: <span class="string">&#x27;114.215.95.188:3128&#x27;</span>&#125;)</span><br><span class="line">opener = urllib.request.build_opener(handler)</span><br><span class="line"><span class="comment"># 后续都使用opener.open方法去发送请求即可</span></span><br></pre></td></tr></table></figure>
+
+<p>requests</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 用到的库</span></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="comment"># 写入获取到的ip地址到proxy</span></span><br><span class="line"><span class="comment"># 一个ip地址</span></span><br><span class="line">proxy = &#123;</span><br><span class="line">    <span class="string">&#x27;http&#x27;</span>:<span class="string">&#x27;http://221.178.232.130:8080&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string"># 多个ip地址</span></span><br><span class="line"><span class="string">proxy = [</span></span><br><span class="line"><span class="string">  &#123;&#x27;http&#x27;:&#x27;http://221.178.232.130:8080&#x27;&#125;,</span></span><br><span class="line"><span class="string">  &#123;&#x27;http&#x27;:&#x27;http://221.178.232.130:8080&#x27;&#125;</span></span><br><span class="line"><span class="string">]</span></span><br><span class="line"><span class="string">import random</span></span><br><span class="line"><span class="string">proxy = random.choice(proxy)</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用代理</span></span><br><span class="line">proxy = &#123;</span><br><span class="line">    <span class="string">&#x27;http&#x27;</span>: <span class="string">&#x27;http://58.20.184.187:9091&#x27;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">result = requests.get(<span class="string">&quot;http://httpbin.org/ip&quot;</span>, proxies=proxy)</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(result.text)</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="4、小结-1"><a href="#4、小结-1" class="headerlink" title="4、小结"></a>4、小结</h3><ol>
+<li>requests发送post请求使用requests.post方法，带上请求体，其中请求体需要时字典的形式，传递给data参数接收</li>
+<li>在requests中使用代理，需要准备字典形式的代理，传递给proxies参数接收</li>
+<li>不同协议的url地址，需要使用不同的代理去请求</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">Q</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2023/12/28/urllib%E4%B8%8Erequests1/">http://example.com/2023/12/28/urllib与requests1/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">myBlog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"></div><div class="post_share"><div class="social-share" data-image="/img/avatar.png" data-sites="wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/2023/12/28/urllib%E4%B8%8Erequests2/" title=""><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info"></div></div></a></div><div class="next-post pull-right"><a href="/2023/12/28/urllib%E4%B8%8Erequests3/" title=""><div class="cover" style="background: var(--default-bg-color)"></div><div class="pagination-info"><div class="label">下一篇</div><div class="next_info"></div></div></a></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Q</div><div class="author-info__description"></div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">20</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">welcome to my blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#urllib%E4%B8%8Erequests"><span class="toc-text">urllib与requests</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81urllib%E7%9A%84%E5%AD%A6%E4%B9%A0"><span class="toc-text">一、urllib的学习</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E7%9B%AE%E6%A0%87"><span class="toc-text">学习目标</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81urllib%E4%BB%8B%E7%BB%8D"><span class="toc-text">1、urllib介绍</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81urllib%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%96%B9%E6%B3%95%E4%BB%8B%E7%BB%8D"><span class="toc-text">2、urllib的基本方法介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#2-1-urllib-Request"><span class="toc-text">2.1 urllib.Request</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-2-response-read"><span class="toc-text">2.2 response.read()</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81urllib%E8%AF%B7%E6%B1%82%E7%99%BE%E5%BA%A6%E9%A6%96%E9%A1%B5%E7%9A%84%E5%AE%8C%E6%95%B4%E4%BE%8B%E5%AD%90"><span class="toc-text">3、urllib请求百度首页的完整例子</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81%E5%B0%8F%E7%BB%93"><span class="toc-text">4、小结</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#requests%E6%A8%A1%E5%9D%97%E7%9A%84%E5%85%A5%E9%97%A8%E4%BD%BF%E7%94%A8"><span class="toc-text">requests模块的入门使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81requests%E6%A8%A1%E5%9D%97%E7%9A%84%E5%85%A5%E9%97%A8%E4%BD%BF%E7%94%A8"><span class="toc-text">一、requests模块的入门使用</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E7%9B%AE%E6%A0%87%EF%BC%9A"><span class="toc-text">学习目标：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E9%87%8D%E7%82%B9%E5%AD%A6%E4%B9%A0requests%E6%A8%A1%E5%9D%97%EF%BC%8C%E8%80%8C%E4%B8%8D%E6%98%AFurllib"><span class="toc-text">1、为什么要重点学习requests模块，而不是urllib</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81requests%E7%9A%84%E4%BD%9C%E7%94%A8%E4%B8%8E%E5%AE%89%E8%A3%85"><span class="toc-text">2、requests的作用与安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81requests%E6%A8%A1%E5%9D%97%E5%8F%91%E9%80%81%E7%AE%80%E5%8D%95%E7%9A%84get%E8%AF%B7%E6%B1%82%E3%80%81%E8%8E%B7%E5%8F%96%E5%93%8D%E5%BA%94"><span class="toc-text">3、requests模块发送简单的get请求、获取响应</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#3-1-response-text-%E5%92%8Cresponse-content%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">3.1 response.text 和response.content的区别</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#3-2-%E7%BB%83%E4%B9%A0%EF%BC%9A%E6%8A%8A%E7%BD%91%E7%BB%9C%E4%B8%8A%E7%9A%84%E5%9B%BE%E7%89%87%E4%BF%9D%E5%AD%98%E5%88%B0%E6%9C%AC%E5%9C%B0"><span class="toc-text">3.2 练习：把网络上的图片保存到本地</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81%E5%8F%91%E9%80%81%E5%B8%A6header%E7%9A%84%E8%AF%B7%E6%B1%82"><span class="toc-text">4、发送带header的请求</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#4-1-%E6%80%9D%E8%80%83"><span class="toc-text">4.1 思考</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-2-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AF%B7%E6%B1%82%E9%9C%80%E8%A6%81%E5%B8%A6%E4%B8%8Aheader%EF%BC%9F"><span class="toc-text">4.2 为什么请求需要带上header？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-3-header%E7%9A%84%E5%BD%A2%E5%BC%8F%EF%BC%9A%E5%AD%97%E5%85%B8"><span class="toc-text">4.3 header的形式：字典</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-4-%E7%94%A8%E6%B3%95"><span class="toc-text">4.4 用法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#4-5-%E5%AE%8C%E6%95%B4%E7%9A%84%E4%BB%A3%E7%A0%81"><span class="toc-text">4.5 完整的代码</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5%E3%80%81%E5%8F%91%E9%80%81%E5%B8%A6%E5%8F%82%E6%95%B0%E7%9A%84%E8%AF%B7%E6%B1%82"><span class="toc-text">5、发送带参数的请求</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#5-1-%E4%BB%80%E4%B9%88%E5%8F%AB%E5%81%9A%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0%EF%BC%9A"><span class="toc-text">5.1 什么叫做请求参数：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-2-%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0%E7%9A%84%E5%BD%A2%E5%BC%8F%EF%BC%9A%E5%AD%97%E5%85%B8"><span class="toc-text">5.2 请求参数的形式：字典</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-3-%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0%E7%9A%84%E7%94%A8%E6%B3%95"><span class="toc-text">5.3 请求参数的用法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-4-%E5%85%B3%E4%BA%8E%E5%8F%82%E6%95%B0%E7%9A%84%E6%B3%A8%E6%84%8F%E7%82%B9"><span class="toc-text">5.4 关于参数的注意点</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-5-%E4%B8%A4%E7%A7%8D%E6%96%B9%E5%BC%8F%EF%BC%9A%E5%8F%91%E9%80%81%E5%B8%A6%E5%8F%82%E6%95%B0%E7%9A%84%E8%AF%B7%E6%B1%82"><span class="toc-text">5.5 两种方式：发送带参数的请求</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#6%E3%80%81%E5%B0%8F%E7%BB%93"><span class="toc-text">6、小结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81requests%E6%A8%A1%E5%9D%97%E7%9A%84%E6%B7%B1%E5%85%A5%E4%BD%BF%E7%94%A8"><span class="toc-text">二、requests模块的深入使用</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AD%A6%E4%B9%A0%E7%9B%AE%E6%A0%87%EF%BC%9A-1"><span class="toc-text">学习目标：</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1%E3%80%81%E4%BD%BF%E7%94%A8requests%E5%8F%91%E9%80%81POST%E8%AF%B7%E6%B1%82"><span class="toc-text">1、使用requests发送POST请求</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-1-requests%E5%8F%91%E9%80%81post%E8%AF%B7%E6%B1%82%E8%AF%AD%E6%B3%95%EF%BC%9A"><span class="toc-text">1.1 requests发送post请求语法：</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#1-2-POST%E8%AF%B7%E6%B1%82%E7%BB%83%E4%B9%A0"><span class="toc-text">1.2 POST请求练习</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%80%9D%E8%B7%AF%E5%88%86%E6%9E%90"><span class="toc-text">思路分析</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-%E5%B0%8F%E7%BB%93"><span class="toc-text">1.3 小结</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E3%80%81%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%90%86"><span class="toc-text">2、使用代理</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%90%86"><span class="toc-text">2.1 为什么要使用代理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-%E7%90%86%E8%A7%A3%E4%BD%BF%E7%94%A8%E4%BB%A3%E7%90%86%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="toc-text">2.2 理解使用代理的过程</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-3-%E7%90%86%E8%A7%A3%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86%E5%92%8C%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%88%E6%89%A9%E5%B1%95%EF%BC%89"><span class="toc-text">2.3 理解正向代理和反向代理的区别（扩展）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-4-%E4%BB%A3%E7%90%86%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-text">2.4 代理的使用</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-5-%E4%BB%A3%E7%90%86IP%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-text">2.5 代理IP的分类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-6-%E4%BB%A3%E7%90%86IP%E4%BD%BF%E7%94%A8%E7%9A%84%E6%B3%A8%E6%84%8F%E7%82%B9"><span class="toc-text">2.6 代理IP使用的注意点</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3%E3%80%81%E9%85%8D%E7%BD%AE"><span class="toc-text">3、配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4%E3%80%81%E5%B0%8F%E7%BB%93-1"><span class="toc-text">4、小结</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/28/urllib%E4%B8%8Erequests2/" title="无题">无题</a><time datetime="2023-12-28T05:03:58.389Z" title="发表于 2023-12-28 13:03:58">2023-12-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/28/urllib%E4%B8%8Erequests1/" title="无题">无题</a><time datetime="2023-12-28T05:03:47.684Z" title="发表于 2023-12-28 13:03:47">2023-12-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/28/urllib%E4%B8%8Erequests3/" title="无题">无题</a><time datetime="2023-12-28T05:03:13.790Z" title="发表于 2023-12-28 13:03:13">2023-12-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/28/xpath/" title="xpath">xpath</a><time datetime="2023-12-28T04:53:07.411Z" title="发表于 2023-12-28 12:53:07">2023-12-28</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/12/27/pikachu%E9%9D%B6%E5%9C%BA/" title="pikachu靶场">pikachu靶场</a><time datetime="2023-12-27T13:19:27.780Z" title="发表于 2023-12-27 21:19:27">2023-12-27</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2023 By Q</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"></div><script id="canvas_nest" defer="defer" color="0,0,255" opacity="0.7" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = true;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="true"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div></body></html>
