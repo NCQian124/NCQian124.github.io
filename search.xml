@@ -4,6 +4,60 @@
   
     
     <entry>
+      <title>python调用Gemini接口</title>
+      <link href="/2024/01/15/python%E8%B0%83%E7%94%A8Gemini%E6%8E%A5%E5%8F%A3/"/>
+      <url>/2024/01/15/python%E8%B0%83%E7%94%A8Gemini%E6%8E%A5%E5%8F%A3/</url>
+      
+        <content type="html"><![CDATA[<h1 id="开发环境"><a href="#开发环境" class="headerlink" title="开发环境"></a>开发环境</h1><p>满足以下要求：</p><ul><li>Python 3.9+ </li><li><code>jupyter</code> 安装。</li></ul><h1 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h1><p>1.使用 pip 安装依赖项</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install -q -U google-generativeai</span><br></pre></td></tr></table></figure><p><img src="/../images/gemini.assets/1.png"></p><p>2.导入必要的包。</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> google.generativeai <span class="keyword">as</span> genai</span><br></pre></td></tr></table></figure><p>3.获取密钥</p><p><img src="/../images/gemini.assets/2.png"></p><p><img src="/../images/gemini.assets/3.png"></p><p>4.设置 API 密钥</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">genai.configure(api_key=GOOGLE_API_KEY,transport=<span class="string">&#x27;rest&#x27;</span>)</span><br></pre></td></tr></table></figure><p>5.设置模型</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">model = genai.GenerativeModel(<span class="string">&#x27;gemini-pro&#x27;</span>)</span><br></pre></td></tr></table></figure><p>6.输入问题</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">response = model.generate_content(<span class="string">&quot;你对信息安全专业怎么看？&quot;</span>)</span><br></pre></td></tr></table></figure><p>7.输出答案</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">print</span>(response.text)</span><br></pre></td></tr></table></figure><h1 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> google.generativeai <span class="keyword">as</span> genai</span><br><span class="line">genai.configure(api_key=<span class="string">&quot;key&quot;</span>,transport=<span class="string">&#x27;rest&#x27;</span>)</span><br><span class="line">model = genai.GenerativeModel(<span class="string">&#x27;gemini-pro&#x27;</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">response = model.generate_content(<span class="string">&quot;你对信息安全专业怎么看？&quot;</span>)</span><br><span class="line"><span class="built_in">print</span>(response.text)</span><br></pre></td></tr></table></figure><p><img src="/../images/gemini.assets/6.png"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 开发 </category>
+          
+          <category> python </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> python </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>JDBC</title>
+      <link href="/2024/01/15/JDBC/"/>
+      <url>/2024/01/15/JDBC/</url>
+      
+        <content type="html"><![CDATA[<p>JDBC是使用Java语言操作关系型数据库的一套API</p><h1 id="导入JDBC"><a href="#导入JDBC" class="headerlink" title="导入JDBC"></a>导入JDBC</h1><p>下载</p><p><img src="/../images/JDBC.assets/1.png"></p><p>创建一个lib目录，复制粘贴到lib中</p><p>鼠标右键单击 jar包所在的lib文件夹，选择 <em><strong>Add as Library…</strong></em>， 将lib作为一个库添加进来：</p><p><img src="/../images/JDBC.assets/2.png"></p><p>鼠标右键单击 jar包所在的lib文件夹，选择 <em><strong>Add as Library…</strong></em>， 将lib作为一个库添加进来：</p><p><img src="/../images/JDBC.assets/3.png"></p><p>弹出窗口后，点击<strong>OK</strong>即可</p><p><img src="/../images/JDBC.assets/4.png"></p><h1 id="快速入门"><a href="#快速入门" class="headerlink" title="快速入门"></a>快速入门</h1><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.添加jar包</span></span><br><span class="line">     <span class="comment">//2.加载驱动</span></span><br><span class="line">     Class.forName(<span class="string">&quot;com.mysql.cj.jdbc.Driver&quot;</span>);</span><br><span class="line">     <span class="comment">//3.通过驱动管理器获取连接对象</span></span><br><span class="line">     <span class="comment">//3.1准备 URL：</span></span><br><span class="line">     <span class="type">String</span> <span class="variable">url</span> <span class="operator">=</span> <span class="string">&quot;jdbc:mysql://127.0.0.1:3306/company?useSSL=false&quot;</span>;</span><br><span class="line">     <span class="comment">//3.2准备用户名：</span></span><br><span class="line">     <span class="type">String</span> <span class="variable">username</span> <span class="operator">=</span> <span class="string">&quot;root&quot;</span>;</span><br><span class="line">     <span class="comment">//3.3准备密码：</span></span><br><span class="line">     <span class="type">String</span> <span class="variable">password</span> <span class="operator">=</span> <span class="string">&quot;1234&quot;</span>;</span><br><span class="line"></span><br><span class="line">     <span class="type">Connection</span> <span class="variable">conn</span> <span class="operator">=</span> DriverManager.getConnection(url, username, password);</span><br><span class="line"></span><br><span class="line">     <span class="comment">//4.定义sql</span></span><br><span class="line">     <span class="type">String</span> <span class="variable">sql</span> <span class="operator">=</span> <span class="string">&quot;update emp set gender=2 where id=1&quot;</span>;</span><br><span class="line">     <span class="comment">//5.获取执行sql的对象</span></span><br><span class="line">     <span class="type">Statement</span> <span class="variable">stmt</span> <span class="operator">=</span> conn.createStatement();</span><br><span class="line">     <span class="comment">//6.执行sql</span></span><br><span class="line">     <span class="type">int</span> count=stmt.executeUpdate(sql);</span><br><span class="line">     <span class="comment">//7.处理结果</span></span><br><span class="line">     System.out.println(count);</span><br><span class="line">     <span class="comment">//8.释放资源</span></span><br><span class="line">     stmt.close();</span><br><span class="line">     conn.close();</span><br></pre></td></tr></table></figure><h1 id="API详解"><a href="#API详解" class="headerlink" title="API详解"></a>API详解</h1><h2 id="DriverManager"><a href="#DriverManager" class="headerlink" title="DriverManager"></a>DriverManager</h2><p><strong>作用：</strong></p><p>1.驱动管理</p><p>2.获取数据库连接</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 开发 </category>
+          
+          <category> Java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Java </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>SQL语句</title>
       <link href="/2024/01/13/sql%E8%AF%AD%E5%8F%A5/"/>
       <url>/2024/01/13/sql%E8%AF%AD%E5%8F%A5/</url>
@@ -78,7 +132,7 @@
       
         <tags>
             
-            <tag> 爬虫 </tag>
+            <tag> python </tag>
             
         </tags>
       
