@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>Maven</title>
+      <link href="/2024/01/20/Maven/"/>
+      <url>/2024/01/20/Maven/</url>
+      
+        <content type="html"><![CDATA[<p>Maven是专门用于管理和构建Java项目的工具，它的主要功能有：</p><ul><li>提供了一套标准化的项目结构</li><li>提供了一套标准化的构建流程（编译、测试、打包、发布…）</li><li>提供了一套依赖管理机制</li></ul><h2 id="基本使用"><a href="#基本使用" class="headerlink" title="基本使用"></a>基本使用</h2><ul><li>compile：编译</li><li>clean：清理</li><li>test：测试</li><li>package：打包</li><li>install：安装</li></ul><h2 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h2><ul><li>clean：清理</li><li>defaulit：核心工作</li><li>site：产生报告</li></ul><h2 id="IDEA配置Maven环境"><a href="#IDEA配置Maven环境" class="headerlink" title="IDEA配置Maven环境"></a>IDEA配置Maven环境</h2><p>1.选择IDEA中File–&gt;Settings</p><p>2.搜索Maven</p><p>3.设置IDEA使用本地安装的Maven，并修改配置文件路径</p><p><img src="/../images/Maven.assets/1.png"></p><h2 id="Maven坐标详解"><a href="#Maven坐标详解" class="headerlink" title="Maven坐标详解"></a>Maven坐标详解</h2><p><strong>什么是坐标？</strong></p><ul><li>Maven中的坐标是资源的唯一标识</li><li>使用坐标来定义项目或引入项目中需要的依赖</li></ul><p><strong>Maven坐标主要组成</strong></p><p>groupld：定义当前Maven项目隶属组织名称（通常是域名反写）</p><p>artifactld:定义当前Maven项目名称（通常是模块名称）</p><p>version：定义当前项目版本号</p><h2 id="IDEA创建Maven项目"><a href="#IDEA创建Maven项目" class="headerlink" title="IDEA创建Maven项目"></a>IDEA创建Maven项目</h2><p>1.创建模块，选择Maven，点击Next</p><p>2.填写模块名称，坐标信息，点击finish，创建完成</p><p>3.编写hello world，并运行</p><p><img src="/../images/Maven.assets/2.png"></p><p><img src="/../images/Maven.assets/3.png"></p><h2 id="IDEA导入Maven项目"><a href="#IDEA导入Maven项目" class="headerlink" title="IDEA导入Maven项目"></a>IDEA导入Maven项目</h2><p>1.选择右侧Maven面板，点击 + 号</p><p>2.选择对应项目的pom.xml文件，双击即可</p><p><img src="/../images/Maven.assets/43.png"></p><h2 id="依赖管理"><a href="#依赖管理" class="headerlink" title="依赖管理"></a>依赖管理</h2><p><strong>使用坐标导入jar包</strong></p><p>1.在pom.xml中编写<dependencies></p><p>2.在<dependencies>标签中使用<dependency></p><p>3.定义坐标的groupld,artifactld,version</p><p>4.点击刷新按钮，使坐标生效</p><p><img src="/../images/Maven.assets/5.png"></p><h2 id="依赖范围"><a href="#依赖范围" class="headerlink" title="依赖范围"></a>依赖范围</h2><p>通过设置坐标的依赖范围(scope)，可以设置对应jar包的作用范围：编译环境、测试环境、运行环境</p><p>scope默认值：compile</p><table><thead><tr><th>依赖范围</th><th>编译classpath</th><th>测试classpath</th><th>运行classpath</th><th>例子</th></tr></thead><tbody><tr><td>compile</td><td>y</td><td>y</td><td>y</td><td>logback</td></tr><tr><td>test</td><td>-</td><td>y</td><td>-</td><td>Junit</td></tr><tr><td>provided</td><td>y</td><td>y</td><td>-</td><td>servet-api</td></tr><tr><td>runtime</td><td>-</td><td>y</td><td>y</td><td>jdbc驱动</td></tr><tr><td>system</td><td>y</td><td>y</td><td>-</td><td>存储在本地的jar包</td></tr><tr><td>import</td><td></td><td></td><td></td><td></td></tr></tbody></table><p><img src="/../images/Maven.assets/6.png"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 开发 </category>
+          
+          <category> Java </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Java </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>git上传错误</title>
       <link href="/2024/01/20/git%E4%B8%8A%E4%BC%A0%E9%94%99%E8%AF%AF/"/>
       <url>/2024/01/20/git%E4%B8%8A%E4%BC%A0%E9%94%99%E8%AF%AF/</url>
