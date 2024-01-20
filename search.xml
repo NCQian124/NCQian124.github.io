@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>git上传错误</title>
+      <link href="/2024/01/20/git%E4%B8%8A%E4%BC%A0%E9%94%99%E8%AF%AF/"/>
+      <url>/2024/01/20/git%E4%B8%8A%E4%BC%A0%E9%94%99%E8%AF%AF/</url>
+      
+        <content type="html"><![CDATA[<h1 id="解决Please-make-sure-you-have-the-correct-access-rights-and-the-repository-exists-问题"><a href="#解决Please-make-sure-you-have-the-correct-access-rights-and-the-repository-exists-问题" class="headerlink" title="解决Please make sure you have the correct access rights and the repository exists 问题."></a>解决Please make sure you have the correct access rights and the repository exists 问题.</h1><h2 id="解决"><a href="#解决" class="headerlink" title="解决:"></a>解决:</h2><p>步骤一：删除.ssh下所有所有文件</p><p><img src="/../images/git%E4%B8%8A%E4%BC%A0%E9%94%99%E8%AF%AF.assets/1.png"></p><p>步骤二:</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">1.设置用户名</span><br><span class="line"></span><br><span class="line">git config --global user.name &#x27;zhandehuang&#x27;</span><br><span class="line"></span><br><span class="line">2.设置用户名邮箱</span><br><span class="line"></span><br><span class="line">git config --global user.email &#x27;it_zdh@163.com&#x27;</span><br><span class="line"></span><br><span class="line">3.查看设置</span><br><span class="line"></span><br><span class="line">git config --list</span><br></pre></td></tr></table></figure><p>然后继续输入命令:修改后面的邮箱即可</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C “it_zdh@163.com”</span><br></pre></td></tr></table></figure><p>步骤三：</p><p>配置：github</p><p>删除原ssh key ,添加新shh key</p><p><img src="/../images/git%E4%B8%8A%E4%BC%A0%E9%94%99%E8%AF%AF.assets/4.png"></p><p><img src="/../images/git%E4%B8%8A%E4%BC%A0%E9%94%99%E8%AF%AF.assets/2.png"></p><p><img src="/../images/git%E4%B8%8A%E4%BC%A0%E9%94%99%E8%AF%AF.assets/3.png"></p><p>步骤四：</p><p>在所生成的rsa所在地址~&#x2F;.ssh下面的添加config并写入</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Host github.com</span><br><span class="line">HostName ssh.github.com  # 这是最重要的部分</span><br><span class="line">User git</span><br><span class="line">Port 443</span><br><span class="line">PreferredAuthentications publickey</span><br><span class="line">IdentityFile ~/.ssh/id_rsa</span><br><span class="line"></span><br></pre></td></tr></table></figure><p><img src="/../images/git%E4%B8%8A%E4%BC%A0%E9%94%99%E8%AF%AF.assets/5.png"></p><p><img src="/../images/git%E4%B8%8A%E4%BC%A0%E9%94%99%E8%AF%AF.assets/6.png"></p><p>去clone你github中的repo了，直接一个命令如下</p><p><img src="/../images/git%E4%B8%8A%E4%BC%A0%E9%94%99%E8%AF%AF.assets/8.png"></p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git clone “你从github repo中复制下来的链接”</span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      <categories>
+          
+          <category> 错误解决 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 错误解决 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>python调用Gemini接口</title>
       <link href="/2024/01/15/python%E8%B0%83%E7%94%A8Gemini%E6%8E%A5%E5%8F%A3/"/>
       <url>/2024/01/15/python%E8%B0%83%E7%94%A8Gemini%E6%8E%A5%E5%8F%A3/</url>
